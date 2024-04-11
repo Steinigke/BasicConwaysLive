@@ -1,3 +1,4 @@
+import threading as th
 
 _width = 0
 _height = 0
@@ -5,6 +6,8 @@ _cycles = 0
 _grid = None
 _running = False
 
+_gmThread = None
+_gmSpeed = 1
 def initGame(gridWidth : int, gridHeight : int):
     global _width
     global _height
@@ -15,6 +18,18 @@ def initGame(gridWidth : int, gridHeight : int):
     _height = gridHeight
     _cycles = 0
     _grid = [[0]*gridWidth for i in range(gridHeight)]
+
+def initGame(list: list):
+    global _width
+    global _height
+    global _grid
+    global _cycles
+
+    _width = len(list[0])
+    _height = len(list)
+    _cycles = 0
+    _grid = list[:]
+
 
 def addCell(x: int, y: int):
     global _running
@@ -91,6 +106,23 @@ def gameTick():
 
     return _grid[:]
 
+def _gameLoop():
+    start()
+    while(_):
+
+
 def destoryGame():
     pass
 
+def start():
+    global _gmThread
+
+    if _gmThread is None :
+        _gmThread = th.Thread()
+        _gmThread.start()
+
+def getWidth():
+    return _width
+
+def getHeight():
+    return _height
